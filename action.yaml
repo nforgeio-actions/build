@@ -1,0 +1,105 @@
+#------------------------------------------------------------------------------
+# Builds a neonFORGE GitHub repo solution on a JOBRUNNER within the [C:\src] directory.
+#
+# This currently manages the following neonFORGE repos:
+#
+#   neonCLOUD           - private/enterprise code including deployment scripts
+#   neonKUBE            - public neonKUBE related code
+#   neonLIBRARY         - public neonLIBRARY related code
+#   cadence-samples     - public Cadence sample apps
+#   temporal-samples    - public Temporal sample apps
+
+name: neon-build
+description: Builds one of the neonFORGE repos with options
+inputs:
+  repo:
+    description: The repostory to build (one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples)
+    required: true
+  build-config:
+    description: Specifies the build configuration (typically Debug, Release, or CodeDoc)
+    required: false
+    default: release
+  build-installer:
+    description: Indicates that any installers should be built
+    required: false
+    default: false
+  build-codedoc:
+    description: Indicates that code documentation should be build
+    required: false
+    default: false
+runs:
+  using: composite
+  steps:
+  - name: build
+    shell: pwsh
+    run: |
+      
+      # Verify that we're running on a properly configured neonFORGE jobrunner 
+      # and import the deployment and action scripts from neonCLOUD.
+      
+      # NOTE: This assumes that the required [$NC_ROOT/Powershell/*.ps1] files
+      #       in the current clone of the repo on the runner are up-to-date
+      #       enough to be able to obtain secrets and use GitHub Action functions.
+      #       If this is not the case, you'll have to manually pull the repo 
+      #       first on the runner.
+      
+      $ncRoot = $env:NC_ROOT
+      
+      if (![System.IO.Directory]::Exists($ncRoot))
+      {
+          throw "Runner Config: neonCLOUD repo is not present."
+      }
+      
+      $ncPowershell = [System.IO.Path]::Combine($ncRoot, "Powershell")
+      
+      Push-Location $ncPowershell
+      
+      . ./deployment.ps1
+      . ./github.ps1
+      
+      Pop-Location
+      
+      # Each repo has their own build scripts.
+      
+      #repo = ${{ inputs.repo }}
+      
+      Switch ($repo)
+      {
+          "neonCLOUD"
+          {
+              $buildScript = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
+              
+              $options = ""
+              
+              
+              Break
+          }
+          
+          "neonKUBE"
+          {
+              Break
+          }
+          
+          "neonLIBRARY"
+          {
+              throw "neonLIBRARY build is not implemented yet"
+              Break
+          }
+          
+          "cadence-samples"
+          {
+              throw "cadence-samples build is not implemented yet"
+              Break
+          }
+          
+          "temporal-samples"
+          {
+              throw "temporal-samples build is not implemented yet"
+              Break
+          }
+          
+          default
+          {
+              Break
+          }
+      }
