@@ -15,18 +15,24 @@ inputs:
   repo:
     description: The repostory to build (one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples)
     required: true
-  build-config:
-    description: Specifies the build configuration (typically Debug, Release, or CodeDoc)
+  build-tools:
+    description: Indicates whether tools should be built and and published to the repo's Build folder
     required: false
-    default: release
+    default: false
   build-installer:
-    description: Indicates that any installers should be built
+    description: Indicates whether installers should be built
     required: false
     default: false
   build-codedoc:
-    description: Indicates that code documentation should be build
+    description: Indicates whether code documentation should be built
     required: false
     default: false
+  build-logpath:
+    description: Specifies where the build log file should be written
+    required: true
+outputs:
+  build-error:
+    description: Returns as "true" for build errors, "false" otherwise
 runs:
   using: composite
   steps:
@@ -59,47 +65,89 @@ runs:
       
       Pop-Location
       
-      # Each repo has their own build scripts.
+      # Note that each repo has their own build scripts.
       
-      #repo = ${{ inputs.repo }}
+      $repo       = ${{ inputs.repo }}
+      $buildLog   = "ERROR: Build was never executed."
+      $buildError = true
       
       Switch ($repo)
       {
           "neonCLOUD"
           {
-              $buildScript = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
+              $buildScript      = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
+              $toolsOption      = ""
+              $installersOption = ""
+              $codeDocOption    = ""
               
-              $options = ""
+              if ("${{ inputs.build-tools }}" -eq "true")
+              {
+                  toolsOption = "-tools"
+              }
               
+              if ("${{ inputs.build-installer }}" -eq "true")
+              {
+                  installersOption = "-installers"
+              }
               
+              if ("${{ inputs.build-codedoc }}" -eq "true")
+              {
+                  # This is currently a NOP for this repo.
+              }
+              
+              $buildLog   = $(& pwsh $buildScript $toolsOption $installersOption $codeDocOption)
+              $buildError = $?
               Break
           }
           
           "neonKUBE"
           {
+              $buildScript      = [System.IO.Path]::Combine($env:NF_TOOLBIN, "neon-builder.ps1")
+              $toolsOption      = ""
+              $installersOption = ""
+              $codeDocOption    = ""
+              
+              if ("${{ inputs.build-tools }}" -eq "true")
+              {
+                  toolsOption = "-tools"
+              }
+              
+              if ("${{ inputs.build-installer }}" -eq "true")
+              {
+                  installersOption = "-installers"
+              }
+              
+              if ("${{ inputs.build-codedoc }}" -eq "true")
+              {
+                  # This is currently a NOP for this repo.
+              }
+              
+              $buildLog   = $(& pwsh $buildScript $toolsOption $installersOption $codeDocOption)
+              $buildError = $?
               Break
           }
           
           "neonLIBRARY"
           {
-              throw "neonLIBRARY build is not implemented yet"
+              throw "[neonLIBRARY] build is not implemented."
               Break
           }
           
           "cadence-samples"
           {
-              throw "cadence-samples build is not implemented yet"
+              throw "[cadence-samples] build is not implemented."
               Break
           }
           
           "temporal-samples"
           {
-              throw "temporal-samples build is not implemented yet"
+              throw "[temporal-samples] build is not implemented."
               Break
           }
           
           default
           {
+              throw "[$repo] is not a supported repo."
               Break
           }
       }
