@@ -13,22 +13,22 @@ name: neon-build
 description: Builds one of the neonFORGE repos with options
 inputs:
   repo:
-    description: The repostory to build (one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples)
+    description: "The repostory to build (one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples)"
     required: true
   build-tools:
-    description: Indicates whether tools should be built and and published to the repo's Build folder
+    description: "Indicates whether tools should be built and and published to the repo's Build folder"
     required: false
     default: false
   build-installer:
-    description: Indicates whether installers should be built
+    description: "Indicates whether installers should be built"
     required: false
     default: false
   build-codedoc:
-    description: Indicates whether code documentation should be built
+    description: "Indicates whether code documentation should be built"
     required: false
     default: false
   build-log-path:
-    description: Specifies where the build log file should be written
+    description: "Specifies where the build log file should be written"
     required: true
 outputs:
   build-error:
