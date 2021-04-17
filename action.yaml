@@ -148,15 +148,15 @@ runs:
               throw "[$repo] is not a supported repo."
               Break
           }
+      }
           
-          # Persist the build log and build error output
-          
-          [System.IO.File]::WriteAllText($buildLogPath, $buildLog)
-          
-          if ($buildError)
-          {
-          }
-          else
-          {
-          }
+      # Persist the build log and build error output
+
+      [System.IO.File]::WriteAllText($buildLogPath, $buildLog)
+
+      if ($buildError)
+      {
+      }
+      else
+      {
       }
