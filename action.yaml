@@ -8,6 +8,11 @@
 #   neonLIBRARY         - public neonLIBRARY related code
 #   cadence-samples     - public Cadence sample apps
 #   temporal-samples    - public Temporal sample apps
+#
+# REMARKS:
+#
+# This builds all projects in the RELEASE configuration and then builds any additional
+# requested artifacts like tools or code documentation.
 
 name: neon-build
 description: "Builds one of the neonFORGE repos with options"
