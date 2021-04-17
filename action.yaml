@@ -10,7 +10,7 @@
 #   temporal-samples    - public Temporal sample apps
 
 name: neon-build
-description: Builds one of the neonFORGE repos with options
+description: "Builds one of the neonFORGE repos with options"
 inputs:
   repo:
     description: "The repostory to build (one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples)"
@@ -32,7 +32,7 @@ inputs:
     required: true
 outputs:
   build-error:
-    description: Returns as "true" for build errors, "false" otherwise
+    description: "Returns as "true" for build errors, "false" otherwise"
 runs:
   using: composite
   steps:
