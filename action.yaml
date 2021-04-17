@@ -32,7 +32,7 @@ inputs:
     required: true
 outputs:
   build-error:
-    description: "Returns as "true" for build errors, "false" otherwise"
+    description: "Returns as 'true' for build errors, 'false' otherwise"
 runs:
   using: composite
   steps:
