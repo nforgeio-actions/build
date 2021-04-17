@@ -27,7 +27,7 @@ inputs:
     description: Indicates whether code documentation should be built
     required: false
     default: false
-  build-logpath:
+  build-log-path:
     description: Specifies where the build log file should be written
     required: true
 outputs:
