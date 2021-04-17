@@ -108,10 +108,10 @@ runs:
                   # This is currently a NOP for the neonCLOUD repo.
               }
               
-              [System.IO.File].AppendAllText($buildLogPath, "`r`n")
-              [System.IO.File].AppendAllText($buildLogPath, "==============================`r`n")
-              [System.IO.File].AppendAllText($buildLogPath, "* neonCLOUD`r`n")
-              [System.IO.File].AppendAllText($buildLogPath, "==============================`r`n")
+              [System.IO.File]::AppendAllText($buildLogPath, "`r`n")
+              [System.IO.File]::AppendAllText($buildLogPath, "==============================`r`n")
+              [System.IO.File]::AppendAllText($buildLogPath, "* neonCLOUD`r`n")
+              [System.IO.File]::AppendAllText($buildLogPath, "==============================`r`n")
               
               & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
               $buildError = $?
@@ -140,10 +140,10 @@ runs:
                   # This is currently a NOP for this repo.
               }
               
-              [System.IO.File].AppendAllText($buildLogPath, "`r`n")
-              [System.IO.File].AppendAllText($buildLogPath, "==============================`r`n")
-              [System.IO.File].AppendAllText($buildLogPath, "* neonKUBE`r`n")
-              [System.IO.File].AppendAllText($buildLogPath, "==============================`r`n")
+              [System.IO.File]::AppendAllText($buildLogPath, "`r`n")
+              [System.IO.File]::AppendAllText($buildLogPath, "==============================`r`n")
+              [System.IO.File]::AppendAllText($buildLogPath, "* neonKUBE`r`n")
+              [System.IO.File]::AppendAllText($buildLogPath, "==============================`r`n")
               
               & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
               $buildError = $?
