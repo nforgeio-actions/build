@@ -16,7 +16,7 @@ inputs:
     description: "The repostory to build (one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples)"
     required: true
   build-tools:
-    description: "Indicates whether tools should be built and and published to the repo's Build folder"
+    description: "Indicates whether tools should be built and published to the repo's Build folder"
     required: false
     default: false
   build-installer:
