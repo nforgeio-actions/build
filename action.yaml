@@ -71,6 +71,11 @@ runs:
       
       Switch ($repo)
       {
+          ""
+          {
+              throw "[inputs.repo] is required."
+          }
+          
           "neonCLOUD"
           {
               $buildScript      = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
