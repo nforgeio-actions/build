@@ -90,7 +90,7 @@ runs:
               
               if ("${{ inputs.build-installer }}" -eq "true")
               {
-                  installersOption = "-installers"
+                  $installersOption = "-installers"
               }
               
               if ("${{ inputs.build-codedoc }}" -eq "true")
@@ -117,7 +117,7 @@ runs:
               
               if ("${{ inputs.build-installer }}" -eq "true")
               {
-                  installersOption = "-installers"
+                  $installersOption = "-installers"
               }
               
               if ("${{ inputs.build-codedoc }}" -eq "true")
