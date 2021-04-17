@@ -159,14 +159,4 @@ runs:
               Break
           }
       }
-          
-      # Persist the build log and build error output
 
-      [System.IO.File]::WriteAllText($buildLogPath, $buildLog)
-
-      if ($buildError)
-      {
-      }
-      else
-      {
-      }
