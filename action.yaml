@@ -19,7 +19,7 @@ inputs:
     description: "Indicates whether tools should be built and published to the repo's Build folder"
     required: false
     default: false
-  build-installer:
+  build-installers:
     description: "Indicates whether installers should be built"
     required: false
     default: false
@@ -88,7 +88,7 @@ runs:
                   $toolsOption = "-tools"
               }
               
-              if ("${{ inputs.build-installer }}" -eq "true")
+              if ("${{ inputs.build-installers }}" -eq "true")
               {
                   $installersOption = "-installers"
               }
