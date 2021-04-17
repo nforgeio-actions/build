@@ -67,7 +67,7 @@ runs:
       $repo         = ${{ inputs.repo }}
       $buildLog     = "ERROR: Build was never executed."
       $buildError   = true
-      $buildLogPath = ${{ inputs. }}
+      $buildLogPath = ${{ inputs.build-log-path }}
       
       Switch ($repo)
       {
