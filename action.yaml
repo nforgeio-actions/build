@@ -74,6 +74,11 @@ runs:
       $buildError   = $true
       $buildLogPath = "${{ inputs.build-log-path }}"
       
+      if ([System.IO.File]::Exists($buildLogPath))
+      {
+          [System.IO.File]::Delete($buildLogPath)
+      }
+      
       Switch ($repo)
       {
           ""
@@ -103,7 +108,12 @@ runs:
                   # This is currently a NOP for the neonCLOUD repo.
               }
               
-              $buildLog   = $(& pwsh $buildScript $toolsOption $installersOption $codeDocOption)
+              [System.IO.File].AppendAllText($buildLogPath, "`r`n")
+              [System.IO.File].AppendAllText($buildLogPath, "==============================`r`n")
+              [System.IO.File].AppendAllText($buildLogPath, "* neonCLOUD`r`n")
+              [System.IO.File].AppendAllText($buildLogPath, "==============================`r`n")
+              
+              & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
               $buildError = $?
               Break
           }
@@ -130,7 +140,12 @@ runs:
                   # This is currently a NOP for this repo.
               }
               
-              $buildLog   = $(& pwsh $buildScript $toolsOption $installersOption $codeDocOption)
+              [System.IO.File].AppendAllText($buildLogPath, "`r`n")
+              [System.IO.File].AppendAllText($buildLogPath, "==============================`r`n")
+              [System.IO.File].AppendAllText($buildLogPath, "* neonKUBE`r`n")
+              [System.IO.File].AppendAllText($buildLogPath, "==============================`r`n")
+              
+              & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
               $buildError = $?
               Break
           }
