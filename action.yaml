@@ -95,7 +95,7 @@ runs:
               
               if ("${{ inputs.build-codedoc }}" -eq "true")
               {
-                  # This is currently a NOP for this repo.
+                  # This is currently a NOP for the neonCLOUD repo.
               }
               
               $buildLog   = $(& pwsh $buildScript $toolsOption $installersOption $codeDocOption)
