@@ -56,14 +56,10 @@ runs:
           throw "Runner Config: neonCLOUD repo is not present."
       }
       
-      # Pickup common Powershell utilities from $NC_ROOT/Powershell.
-      
       $ncPowershell = [System.IO.Path]::Combine($ncRoot, "Powershell")
       
       Push-Location $ncPowershell
-      
       . ./includes.ps1
-      
       Pop-Location
       
       # Note that each repo has their own build scripts.
