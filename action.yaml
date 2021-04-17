@@ -13,7 +13,7 @@ name: neon-build
 description: "Builds one of the neonFORGE repos with options"
 inputs:
   repo:
-    description: "The repostory to build (one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples)"
+    description: "The repostory to build, one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples"
     required: true
   build-tools:
     description: "Indicates whether tools should be built and published to the repo's Build folder"
@@ -85,7 +85,7 @@ runs:
               
               if ("${{ inputs.build-tools }}" -eq "true")
               {
-                  toolsOption = "-tools"
+                  $toolsOption = "-tools"
               }
               
               if ("${{ inputs.build-installer }}" -eq "true")
@@ -112,7 +112,7 @@ runs:
               
               if ("${{ inputs.build-tools }}" -eq "true")
               {
-                  toolsOption = "-tools"
+                  $toolsOption = "-tools"
               }
               
               if ("${{ inputs.build-installer }}" -eq "true")
