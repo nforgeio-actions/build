@@ -105,13 +105,8 @@ runs:
               
               if ("${{ inputs.build-codedoc }}" -eq "true")
               {
-                  # $codeDocOption = "-codedoc"
+                  $codeDocOption = "-codedoc"
               }
-              
-              [System.IO.File]::AppendAllText($buildLogPath, "`r`n")
-              [System.IO.File]::AppendAllText($buildLogPath, "==============================`r`n")
-              [System.IO.File]::AppendAllText($buildLogPath, "* neonCLOUD`r`n")
-              [System.IO.File]::AppendAllText($buildLogPath, "==============================`r`n")
               
               & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
               $buildError = $?
@@ -139,11 +134,6 @@ runs:
               {
                   $codeDocOption = "-codedoc"
               }
-              
-              [System.IO.File]::AppendAllText($buildLogPath, "`r`n")
-              [System.IO.File]::AppendAllText($buildLogPath, "==============================`r`n")
-              [System.IO.File]::AppendAllText($buildLogPath, "* neonKUBE`r`n")
-              [System.IO.File]::AppendAllText($buildLogPath, "==============================`r`n")
               
               & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
               $buildError = $?
