@@ -67,6 +67,11 @@ runs:
       . ./includes.ps1
       Pop-Location
       
+      # $debug(jefflill): DELETE THIS!
+      
+      "`u{001b}[31mTHIS SHOULD BE RED`u{001b}[0m"
+      "`u{001b}[33mTHIS SHOULD BE YELLOW`u{001b}[0m"
+      
       # Note that each repo has their own build scripts.
       
       $repo         = "${{ inputs.repo }}"
