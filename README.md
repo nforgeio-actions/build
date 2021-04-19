@@ -8,7 +8,7 @@ Builds a neonFORGE solution, optionally including installers and code documentat
 
 **neonCLOUD: Full build**
 ```
-uses: nforgeio-actions/neon-build
+uses: nforgeio-actions/build
 with:
   repo: neonCLOUD
   build-tools: true
@@ -19,7 +19,7 @@ with:
 
 **neonCLOUD: Build code only**
 ```
-uses: nforgeio-actions/neon-build
+uses: nforgeio-actions/build
 with:
   repo: neonCLOUD
   build-log-path: ${{ github.workspace }}/build.log
