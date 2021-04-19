@@ -14,7 +14,7 @@
 # This builds all projects in the RELEASE configuration and then builds any additional
 # requested artifacts like tools or code documentation.
 
-name: neon-build
+name: build
 description: "Builds one of the neonFORGE repos with options"
 inputs:
   repo:
