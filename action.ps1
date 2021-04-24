@@ -81,7 +81,7 @@ Switch ($repo)
 
         Push-Location $env:NC_ROOT
         $buildBranch = $(& git branch --show-current).Trim()
-        $buildCommit = $(& $ git rev-parse HEAD).Trim()
+        $buildCommit = $(& git rev-parse HEAD).Trim()
         Pop-Location
 
         Set-ActionOutput "build-branch"     $buildBranch
@@ -119,7 +119,7 @@ Switch ($repo)
 
         Push-Location $env:NC_ROOT
         $buildBranch = $(& git branch --show-current).Trim()
-        $buildCommit = $(& $ git rev-parse HEAD).Trim()
+        $buildCommit = $(& git rev-parse HEAD).Trim()
         Pop-Location
 
         Set-ActionOutput "build-branch"     $buildBranch
