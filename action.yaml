@@ -36,8 +36,12 @@ inputs:
     description: "Specifies where the build log file should be written"
     required: true
 outputs:
-  build-error:
-    description: "Returns as 'true' for build errors, 'false' otherwise"
+  build-branch:
+    description: "Returns as the repo branch built"
+  build-commit:
+    description: "Returns as the git commit hash"
+  build-commit-uri:
+    description: "Returns as the GitHub URI to the commit built"
 runs:
   using: node12
   main: action.js

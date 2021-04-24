@@ -76,6 +76,17 @@ Switch ($repo)
               
         & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
         $buildError = $?
+
+        # Set the build outputs based on the local repo configuration.
+
+        Push-Location $env:NC_ROOT
+        $buildBranch = $(& git branch --show-current).Trim()
+        $buildCommit = $(& $ git rev-parse HEAD).Trim()
+        Pop-Location
+
+        Set-ActionOutput "build-branch"     $buildBranch
+        Set-ActionOutput "build-commit"     $buildCommit
+        Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonCLOUD/commit/$buildCommit"
         Break
     }
           
@@ -103,6 +114,17 @@ Switch ($repo)
               
         & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
         $buildError = $?
+
+        # Set the build outputs based on the local repo configuration.
+
+        Push-Location $env:NC_ROOT
+        $buildBranch = $(& git branch --show-current).Trim()
+        $buildCommit = $(& $ git rev-parse HEAD).Trim()
+        Pop-Location
+
+        Set-ActionOutput "build-branch"     $buildBranch
+        Set-ActionOutput "build-commit"     $buildCommit
+        Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonKUBE/commit/$buildCommit"
         Break
     }
           
