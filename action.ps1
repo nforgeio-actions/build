@@ -181,6 +181,12 @@ try
 }
 catch
 {
+    Write-ActionError "****************************************************************"
+    Write-ActionError "* BUILD FAILED!                                                *"
+    Write-ActionError "* -------------                                                *"
+    Write-ActionError "* Check the captured log in the next step for more information *"
+    Write-ActionError "****************************************************************"
+    Write-ActionOutput
     Write-ActionException $_
     exit 1
 }
