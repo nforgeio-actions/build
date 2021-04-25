@@ -77,10 +77,13 @@ Switch ($repo)
         # Set the build outputs based on the local repo configuration.
 
         Push-Location $env:NC_ROOT
-        $buildBranch = $(& git branch --show-current).Trim()
-        ThrowOnExitCode
-        $buildCommit = $(& git rev-parse HEAD).Trim()
-        ThrowOnExitCode
+
+            $buildBranch = $(& git branch --show-current).Trim()
+            ThrowOnExitCode
+
+            $buildCommit = $(& git rev-parse HEAD).Trim()
+            ThrowOnExitCode
+
         Pop-Location
 
         Set-ActionOutput "build-branch"     $buildBranch
@@ -117,10 +120,13 @@ Switch ($repo)
         # Set the build outputs based on the local repo configuration.
 
         Push-Location $env:NF_ROOT
-        $buildBranch = $(& git branch --show-current).Trim()
-        ThrowOnExitCode
-        $buildCommit = $(& git rev-parse HEAD).Trim()
-        ThrowOnExitCode
+
+            $buildBranch = $(& git branch --show-current).Trim()
+            ThrowOnExitCode
+
+            $buildCommit = $(& git rev-parse HEAD).Trim()
+            ThrowOnExitCode
+
         Pop-Location
 
         Set-ActionOutput "build-branch"     $buildBranch
