@@ -134,7 +134,11 @@ try
             # Perform the build.
 
             & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
-            ThrowOnExitCode
+            
+            if ($LastExitCode -ne 0)
+            {
+                Write-ActionError 
+            }
 
             # Set the build outputs based on the local repo configuration.
 
