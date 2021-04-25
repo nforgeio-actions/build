@@ -45,6 +45,8 @@ outputs:
     description: "Returns as the git commit hash"
   build-commit-uri:
     description: "Returns as the GitHub URI to the commit built"
+  success: 
+    description: "Returns 'true' on success, 'false' on failure"
 runs:
   using: node12
   main: action.js

@@ -36,134 +36,150 @@ $buildLogPath    = Get-ActionInput "build-log-path"
 $buildTools      = $(Get-ActionInput "build-tools") -eq "true"
 $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
-      
-if ([System.IO.File]::Exists($buildLogPath))
+
+# Initialize some outputs.
+
+Set-ActionOutput "build-branch"     $buildBranch
+Set-ActionOutput "build-commit"     $buildCommit
+Set-ActionOutput "success"          "false"
+
+# Perform the operation in a try/catch.
+
+try
 {
-    [System.IO.File]::Delete($buildLogPath)
-}
+    # Delete any existing build log file.
       
-Switch ($repo)
-{
-    ""
+    if ([System.IO.File]::Exists($buildLogPath))
     {
-        throw "[inputs.repo] is required."
+        [System.IO.File]::Delete($buildLogPath)
     }
-          
-    "neonCLOUD"
+      
+    Switch ($repo)
     {
-        $buildScript      = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
-        $toolsOption      = ""
-        $installersOption = ""
-        $codeDocOption    = ""
-              
-        if ($buildTools)
+        ""
         {
-            $toolsOption = "-tools"
+            throw "[inputs.repo] is required."
         }
-              
-        if ($buildInstallers)
+          
+        "neonCLOUD"
         {
-            $installersOption = "-installers"
-        }
+            $buildScript      = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
+            $toolsOption      = ""
+            $installersOption = ""
+            $codeDocOption    = ""
               
-        if ($buildCodeDoc)
-        {
-            $codeDocOption = "-codedoc"
-        }
+            if ($buildTools)
+            {
+                $toolsOption = "-tools"
+            }
               
-        # Set the invariant outputs.
+            if ($buildInstallers)
+            {
+                $installersOption = "-installers"
+            }
+              
+            if ($buildCodeDoc)
+            {
+                $codeDocOption = "-codedoc"
+            }
+              
+            # Set the commit URI output.
 
-        Set-ActionOutput "build-branch"     $buildBranch
-        Set-ActionOutput "build-commit"     $buildCommit
-        Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonCLOUD/commit/$buildCommit"
+            Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonCLOUD/commit/$buildCommit"
 
-        # Perform the build.
+            # Perform the build.
 
-        & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
-        ThrowOnExitCode
-
-        # Set the build outputs based on the local repo configuration.
-
-        Push-Location $env:NC_ROOT
-
-            $buildBranch = $(& git branch --show-current).Trim()
+            & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
             ThrowOnExitCode
 
-            $buildCommit = $(& git rev-parse HEAD).Trim()
+            # Set the build outputs based on the local repo configuration.
+
+            Push-Location $env:NC_ROOT
+
+                $buildBranch = $(& git branch --show-current).Trim()
+                ThrowOnExitCode
+
+                $buildCommit = $(& git rev-parse HEAD).Trim()
+                ThrowOnExitCode
+
+            Pop-Location
+            Break
+        }
+          
+        "neonKUBE"
+        {
+            $buildScript      = [System.IO.Path]::Combine($env:NF_TOOLBIN, "neon-builder.ps1")
+            $toolsOption      = ""
+            $installersOption = ""
+            $codeDocOption    = ""
+              
+            if ($buildTools)
+            {
+                $toolsOption = "-tools"
+            }
+              
+            if ($buildInstallers)
+            {
+                $installersOption = "-installers"
+            }
+              
+            if ($buildCodeDoc)
+            {
+                $codeDocOption = "-codedoc"
+            }
+
+            # Set the commit URI output.
+
+            Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonCLOUD/commit/$buildCommit"
+
+            # Perform the build.
+
+            & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
             ThrowOnExitCode
 
-        Pop-Location
-        Break
-    }
-          
-    "neonKUBE"
-    {
-        $buildScript      = [System.IO.Path]::Combine($env:NF_TOOLBIN, "neon-builder.ps1")
-        $toolsOption      = ""
-        $installersOption = ""
-        $codeDocOption    = ""
-              
-        if ($buildTools)
-        {
-            $toolsOption = "-tools"
+            # Set the build outputs based on the local repo configuration.
+
+            Push-Location $env:NF_ROOT
+
+                $buildBranch = $(& git branch --show-current).Trim()
+                ThrowOnExitCode
+
+                $buildCommit = $(& git rev-parse HEAD).Trim()
+                ThrowOnExitCode
+
+            Pop-Location
+            Break
         }
-              
-        if ($buildInstallers)
+          
+        "neonLIBRARY"
         {
-            $installersOption = "-installers"
+            throw "[neonLIBRARY] build is not implemented."
+            Break
         }
-              
-        if ($buildCodeDoc)
+          
+        "cadence-samples"
         {
-            $codeDocOption = "-codedoc"
+            throw "[cadence-samples] build is not implemented."
+            Break
         }
-              
-        # Set the invariant outputs.
-
-        Set-ActionOutput "build-branch"     $buildBranch
-        Set-ActionOutput "build-commit"     $buildCommit
-        Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonKUBE/commit/$buildCommit"
-
-        # Perform the build.
-
-        & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
-        ThrowOnExitCode
-
-        # Set the build outputs based on the local repo configuration.
-
-        Push-Location $env:NF_ROOT
-
-            $buildBranch = $(& git branch --show-current).Trim()
-            ThrowOnExitCode
-
-            $buildCommit = $(& git rev-parse HEAD).Trim()
-            ThrowOnExitCode
-
-        Pop-Location
-        Break
-    }
           
-    "neonLIBRARY"
-    {
-        throw "[neonLIBRARY] build is not implemented."
-        Break
-    }
+        "temporal-samples"
+        {
+            throw "[temporal-samples] build is not implemented."
+            Break
+        }
           
-    "cadence-samples"
-    {
-        throw "[cadence-samples] build is not implemented."
-        Break
-    }
-          
-    "temporal-samples"
-    {
-        throw "[temporal-samples] build is not implemented."
-        Break
-    }
-          
-    default
-    {
-        throw "[$repo] is not a supported repo."
-        Break
+        default
+        {
+            throw "[$repo] is not a supported repo."
+            Break
+        }
     }
 }
+catch
+{
+    Write-Exception $_
+    exit 1
+}
+
+Set-ActionOutput "success" "true"
