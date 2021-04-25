@@ -41,7 +41,6 @@ $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
 
 Set-ActionOutput "build-branch"     $buildBranch
 Set-ActionOutput "build-commit"     $buildCommit
-Set-ActionOutput "success"          "false"
 
 # Perform the operation in a try/catch.
 
@@ -181,5 +180,3 @@ catch
     Write-ActionException $_
     exit 1
 }
-
-Set-ActionOutput "success" "true"
