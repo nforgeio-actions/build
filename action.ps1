@@ -84,11 +84,6 @@ Switch ($repo)
         $buildCommit = $(& git rev-parse HEAD).Trim()
         Pop-Location
 
-        Write-Output "**************************************"
-        Write-Output "buildBranch: $buildBranch"
-        Write-Output "buildCommit: $buildCommit"
-        Write-Output "**************************************"
-
         Set-ActionOutput "build-branch"     $buildBranch
         Set-ActionOutput "build-commit"     $buildCommit
         Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonCLOUD/commit/$buildCommit"
