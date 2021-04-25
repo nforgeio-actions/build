@@ -36,9 +36,6 @@ $buildLogPath    = Get-ActionInput "build-log-path"
 $buildTools      = $(Get-ActionInput "build-tools") -eq "true"
 $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
-
-$buildLog        = "ERROR: Build was never executed."
-$buildError      = $true
       
 if ([System.IO.File]::Exists($buildLogPath))
 {
@@ -75,13 +72,15 @@ Switch ($repo)
         }
               
         & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
-        $buildError = $?
+        ThrowOnExitCode
 
         # Set the build outputs based on the local repo configuration.
 
         Push-Location $env:NC_ROOT
         $buildBranch = $(& git branch --show-current).Trim()
+        ThrowOnExitCode
         $buildCommit = $(& git rev-parse HEAD).Trim()
+        ThrowOnExitCode
         Pop-Location
 
         Set-ActionOutput "build-branch"     $buildBranch
@@ -113,13 +112,15 @@ Switch ($repo)
         }
               
         & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
-        $buildError = $?
+        ThrowOnExitCode
 
         # Set the build outputs based on the local repo configuration.
 
         Push-Location $env:NF_ROOT
         $buildBranch = $(& git branch --show-current).Trim()
+        ThrowOnExitCode
         $buildCommit = $(& git rev-parse HEAD).Trim()
+        ThrowOnExitCode
         Pop-Location
 
         Set-ActionOutput "build-branch"     $buildBranch
