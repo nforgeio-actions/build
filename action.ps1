@@ -178,7 +178,7 @@ try
 }
 catch
 {
-    Write-Exception $_
+    Write-ActionException $_
     exit 1
 }
 
