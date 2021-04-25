@@ -71,6 +71,14 @@ Switch ($repo)
             $codeDocOption = "-codedoc"
         }
               
+        # Set the invariant outputs.
+
+        Set-ActionOutput "build-branch"     $buildBranch
+        Set-ActionOutput "build-commit"     $buildCommit
+        Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonCLOUD/commit/$buildCommit"
+
+        # Perform the build.
+
         & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
         ThrowOnExitCode
 
@@ -85,10 +93,6 @@ Switch ($repo)
             ThrowOnExitCode
 
         Pop-Location
-
-        Set-ActionOutput "build-branch"     $buildBranch
-        Set-ActionOutput "build-commit"     $buildCommit
-        Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonCLOUD/commit/$buildCommit"
         Break
     }
           
@@ -114,6 +118,14 @@ Switch ($repo)
             $codeDocOption = "-codedoc"
         }
               
+        # Set the invariant outputs.
+
+        Set-ActionOutput "build-branch"     $buildBranch
+        Set-ActionOutput "build-commit"     $buildCommit
+        Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonKUBE/commit/$buildCommit"
+
+        # Perform the build.
+
         & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
         ThrowOnExitCode
 
@@ -128,10 +140,6 @@ Switch ($repo)
             ThrowOnExitCode
 
         Pop-Location
-
-        Set-ActionOutput "build-branch"     $buildBranch
-        Set-ActionOutput "build-commit"     $buildCommit
-        Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonKUBE/commit/$buildCommit"
         Break
     }
           
