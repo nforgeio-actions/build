@@ -18,7 +18,10 @@ name: build
 description: "Builds one of the neonFORGE repos with options"
 inputs:
   repo:
-    description: "The repostory to build, one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples"
+    description: "Specifies the repostory to build, one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples"
+    required: true
+  build-branch:
+    description: "Specifies the build branch"
     required: true
   build-tools:
     description: "Indicates whether tools should be built and published to the repo's Build folder"
