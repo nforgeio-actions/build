@@ -36,6 +36,7 @@ $buildLogPath    = Get-ActionInput "build-log-path"
 $buildTools      = $(Get-ActionInput "build-tools") -eq "true"
 $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
+$failOnError     = $(Get-ActionInput "build-codedoc") -eq "true"
 
 # Initialize some outputs.
 
@@ -189,6 +190,11 @@ catch
     Write-ActionException $_
 
     Set-ActionOutput "success" "false"
+
+    if ($failOnError)
+    {
+        exit 1
+    }
     return
 }
 

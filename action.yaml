@@ -38,6 +38,10 @@ inputs:
   build-log-path:
     description: "Specifies where the build log file should be written"
     required: true
+  fail-on-error:
+    description: "Fail the activity step for build errors"
+    required: false
+    default: "false"
 outputs:
   success: 
     description: "Returns 'true' on success or 'false' on faiure"
