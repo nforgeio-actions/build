@@ -58,7 +58,7 @@ steps:
 - uses: nforgeio-actions/capture-log
   if: ${{ always() }}
   with:
-    path: ${{ github.workspace }}/${{ env.build-log-name }}
+    path: ${{ github.workspace }}/${{ env.build.log }}
     group: build.log
     type: build-log
     success: ${{ steps.build.success }}     # This step will fail when the build failed
@@ -75,4 +75,10 @@ steps:
     build-log-path: ${{ github.workspace }}/build.log
     fail-on-error: true
 - uses: nforgeio-actions/capture-log
+  if: ${{ always() }}
+  with:
+  path: ${{ github.workspace }}/${{ build.log }}
+  group: build.log
+  type: build-log
+  fail-on-error: ${{ steps.build.outputs.success }}
 ```
