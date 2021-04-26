@@ -182,7 +182,7 @@ try
 }
 catch
 {
-    Write-ActionError -message "****************************************************************"
+    Write-ActionError "****************************************************************"
     Write-ActionError "* BUILD FAILED!                                                *"
     Write-ActionError "*                                                              *"
     Write-ActionError "* Check the captured log in the next step for more information *"

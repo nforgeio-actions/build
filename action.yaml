@@ -48,7 +48,7 @@ outputs:
   build-branch:
     description: "Returns as the repo branch built"
   build-commit:
-    description: "Returns as the git commit hash"
+    description: "Returns as the git commit hash built"
   build-commit-uri:
     description: "Returns as the GitHub URI to the commit built"
 runs:
