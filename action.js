@@ -22,7 +22,7 @@ process.chdir(__dirname);
 
 // Launch the Powershell script.
 
-exec("pwsh -File action.ps1", { maxBuffer: 1024 * 500 },
+exec("pwsh -File action.ps1", { maxBuffer: 1024 * 4096 },
     function (err, stdout, stderr) {
 
         process.stdout.write(stdout);
