@@ -39,6 +39,8 @@ inputs:
     description: "Specifies where the build log file should be written"
     required: true
 outputs:
+  success: 
+    description: "Returns 'true' on success or 'false' on faiure"
   build-branch:
     description: "Returns as the repo branch built"
   build-commit:

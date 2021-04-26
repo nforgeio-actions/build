@@ -187,5 +187,9 @@ catch
     Write-ActionError "* Check the captured log in the next step for more information *"
     Write-ActionError "****************************************************************"
     Write-ActionException $_
-    exit 1
+
+    Set-ActionOutput "success" "false"
+    return
 }
+
+Set-ActionOutput "success" "true"
