@@ -32,6 +32,7 @@ Pop-Location
 # Read the inputs and initialize other variables.
       
 $repo            = Get-ActionInput "repo"
+$buildBranch     = Get-ActionInput "build-branch"
 $buildLogPath    = Get-ActionInput "build-log-path"
 $buildTools      = $(Get-ActionInput "build-tools") -eq "true"
 $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
@@ -41,7 +42,7 @@ $failOnError     = $(Get-ActionInput "build-codedoc") -eq "true"
 # Initialize some outputs.
 
 Set-ActionOutput "build-branch" $buildBranch
-Set-ActionOutput "build-commit" buildCommit
+Set-ActionOutput "build-commit" $buildCommit
 
 # Perform the operation in a try/catch.
 
