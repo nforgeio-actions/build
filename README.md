@@ -64,7 +64,7 @@ steps:
     success: ${{ steps.build.success }}     # This step will fail when the build failed
 ```
 
-**neonFORGE: Build code and fail the step on errors**
+**neonFORGE: Build code and fail the step for errors**
 
 ```
 steps:
