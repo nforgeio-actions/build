@@ -39,6 +39,11 @@ $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
 $failOnError     = $(Get-ActionInput "build-codedoc") -eq "true"
 
+# Set some output variables.
+
+Set-ActionOutput "build-branch" $buildBranch
+Set-ActionOutput "build-commit" $buildCommit
+
 # Perform the operation in a try/catch.
 
 try
@@ -189,6 +194,4 @@ catch
     return
 }
 
-Set-ActionOutput "build-branch" $buildBranch
-Set-ActionOutput "build-commit" $buildCommit
 Set-ActionOutput "success" "true"
