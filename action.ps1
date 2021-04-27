@@ -84,10 +84,6 @@ try
                 $codeDocOption = "-codedoc"
             }
               
-            # Set the commit URI output.
-
-            Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonCLOUD/commit/$buildCommit"
-
             # Perform the build.
 
             & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
@@ -104,6 +100,11 @@ try
                 ThrowOnExitCode
 
             Pop-Location
+
+            # Set the commit related outputs.
+
+            Set-ActionOutput "build-commit" "$buildCommit"
+            Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
         }
           
         "neonKUBE"
@@ -128,10 +129,6 @@ try
                 $codeDocOption = "-codedoc"
             }
 
-            # Set the commit URI output.
-
-            Set-ActionOutput "build-commit-uri" "https://github.com/nforgeio/neonCLOUD/commit/$buildCommit"
-
             # Perform the build.
 
             & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
@@ -152,6 +149,11 @@ try
                 ThrowOnExitCode
 
             Pop-Location
+
+            # Set the commit related outputs.
+
+            Set-ActionOutput "build-commit" "$buildCommit"
+            Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
         }
           
         "neonLIBRARY"
