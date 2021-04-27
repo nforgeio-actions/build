@@ -31,9 +31,9 @@ Pop-Location
       
 # Read the inputs and initialize other variables.
       
-$repo            = Get-ActionInput "repo"
-$buildBranch     = Get-ActionInput "build-branch"
-$buildLogPath    = Get-ActionInput "build-log-path"
+$repo            = Get-ActionInput "repo"           $true
+$buildBranch     = Get-ActionInput "build-branch"   $true
+$buildLogPath    = Get-ActionInput "build-log-path" $true
 $buildTools      = $(Get-ActionInput "build-tools") -eq "true"
 $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
@@ -99,7 +99,6 @@ try
                 ThrowOnExitCode
 
             Pop-Location
-            Break
         }
           
         "neonKUBE"
@@ -148,31 +147,26 @@ try
                 ThrowOnExitCode
 
             Pop-Location
-            Break
         }
           
         "neonLIBRARY"
         {
             throw "[neonLIBRARY] build is not implemented."
-            Break
         }
           
         "cadence-samples"
         {
             throw "[cadence-samples] build is not implemented."
-            Break
         }
           
         "temporal-samples"
         {
             throw "[temporal-samples] build is not implemented."
-            Break
         }
           
         default
         {
             throw "[$repo] is not a supported repo."
-            Break
         }
     }
 }
