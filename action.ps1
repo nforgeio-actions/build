@@ -84,11 +84,6 @@ try
                 $codeDocOption = "-codedoc"
             }
               
-            # Perform the build.
-
-            & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
-            ThrowOnExitCode
-
             # Set the build outputs based on the local repo configuration.
 
             Push-Location $env:NC_ROOT
@@ -101,10 +96,13 @@ try
 
             Pop-Location
 
-            # Set the commit related outputs.
-
             Set-ActionOutput "build-commit" "$buildCommit"
             Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
+
+            # Perform the build.
+
+            & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
+            ThrowOnExitCode
         }
           
         "neonKUBE"
@@ -129,15 +127,6 @@ try
                 $codeDocOption = "-codedoc"
             }
 
-            # Perform the build.
-
-            & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
-            
-            if ($LastExitCode -ne 0)
-            {
-                Write-ActionError 
-            }
-
             # Set the build outputs based on the local repo configuration.
 
             Push-Location $env:NF_ROOT
@@ -150,10 +139,17 @@ try
 
             Pop-Location
 
-            # Set the commit related outputs.
-
             Set-ActionOutput "build-commit" "$buildCommit"
             Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
+
+            # Perform the build.
+
+            & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
+            
+            if ($LastExitCode -ne 0)
+            {
+                Write-ActionError 
+            }
         }
           
         "neonLIBRARY"
