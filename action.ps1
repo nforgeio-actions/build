@@ -145,11 +145,7 @@ try
             # Perform the build.
 
             & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
-            
-            if ($LastExitCode -ne 0)
-            {
-                Write-ActionError 
-            }
+            ThrowOnExitCode
         }
           
         "neonLIBRARY"
