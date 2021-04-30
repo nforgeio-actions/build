@@ -39,9 +39,15 @@ $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
 $failOnError     = $(Get-ActionInput "build-codedoc") -eq "true"
 
+# [build-config] is not supported at this time because the
+# build scripts are not parameterized for this yet.
+
+$buildConfig = "release"
+
 # Set some output variables.
 
 Set-ActionOutput "build-branch" $buildBranch
+Set-ActionOutput "build-config" $buildConfig
 Set-ActionOutput "build-commit" $buildCommit
 
 # Perform the operation in a try/catch.

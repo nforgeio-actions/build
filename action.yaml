@@ -23,6 +23,10 @@ inputs:
   build-branch:
     description: "Specifies the build branch"
     required: true
+  build-config: 
+    description: "Specifies the build configuration ('release' is hard-coded)"
+    required: false
+    default: "true"
   build-tools:
     description: "Indicates whether tools should be built and published to the repo's Build folder"
     required: false
@@ -47,6 +51,8 @@ outputs:
     description: "Returns 'true' on success or 'false' on faiure"
   build-branch:
     description: "Returns as the repo branch built"
+  build-config:
+    description: "Returns as the build configuration"
   build-commit:
     description: "Returns as the git commit hash built"
   build-commit-uri:
