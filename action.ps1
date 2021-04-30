@@ -33,16 +33,17 @@ Pop-Location
       
 $repo            = Get-ActionInput "repo"           $true
 $buildBranch     = Get-ActionInput "build-branch"   $true
+$buildConfig     = Get-ActionInput "release"        $false
 $buildLogPath    = Get-ActionInput "build-log-path" $true
 $buildTools      = $(Get-ActionInput "build-tools") -eq "true"
 $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
 $failOnError     = $(Get-ActionInput "build-codedoc") -eq "true"
 
-# [build-config] is not supported at this time because the
-# build scripts are not parameterized for this yet.
-
-$buildConfig = "release"
+if ($buildConfig != "release")
+{
+    $configOption = "-debug"
+}
 
 # Set some output variables.
 
@@ -107,7 +108,7 @@ try
 
             # Perform the build.
 
-            & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
+            & pwsh $buildScript $toolsOption $installersOption $codeDocOption $configOption >> $buildLogPath
             ThrowOnExitCode
         }
           
@@ -150,7 +151,7 @@ try
 
             # Perform the build.
 
-            & pwsh $buildScript $toolsOption $installersOption $codeDocOption >> $buildLogPath
+            & pwsh $buildScript $toolsOption $installersOption $codeDocOption $configOption >> $buildLogPath
             ThrowOnExitCode
         }
           
