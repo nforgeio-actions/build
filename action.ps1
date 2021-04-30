@@ -33,7 +33,7 @@ Pop-Location
       
 $repo            = Get-ActionInput "repo"           $true
 $buildBranch     = Get-ActionInput "build-branch"   $true
-$buildConfig     = Get-ActionInput "release"        $false
+$buildConfig     = Get-ActionInput "build-config"   $false
 $buildLogPath    = Get-ActionInput "build-log-path" $true
 $buildTools      = $(Get-ActionInput "build-tools") -eq "true"
 $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
