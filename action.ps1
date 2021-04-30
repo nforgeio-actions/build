@@ -40,7 +40,7 @@ $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
 $failOnError     = $(Get-ActionInput "build-codedoc") -eq "true"
 
-if ($buildConfig != "release")
+if ($buildConfig -ne "release")
 {
     $configOption = "-debug"
 }
