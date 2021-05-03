@@ -45,13 +45,6 @@ if ($buildConfig -ne "release")
     $configOption = "-debug"
 }
 
-# Set some output variables.
-
-Set-ActionOutput "build-branch" $buildBranch
-Set-ActionOutput "build-config" $buildConfig
-Set-ActionOutput "build-commit" $buildCommit
-Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
-
 # Perform the operation in a try/catch.
 
 try
@@ -172,6 +165,13 @@ try
             throw "[$repo] is not a supported repo."
         }
     }
+
+    # Set some output variables.
+
+    Set-ActionOutput "build-branch" $buildBranch
+    Set-ActionOutput "build-config" $buildConfig
+    Set-ActionOutput "build-commit" $buildCommit
+    Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
 }
 catch
 {
