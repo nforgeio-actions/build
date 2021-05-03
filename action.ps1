@@ -50,6 +50,7 @@ if ($buildConfig -ne "release")
 Set-ActionOutput "build-branch" $buildBranch
 Set-ActionOutput "build-config" $buildConfig
 Set-ActionOutput "build-commit" $buildCommit
+Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
 
 # Perform the operation in a try/catch.
 
@@ -192,6 +193,3 @@ catch
 }
 
 Set-ActionOutput "success" "true"
-Set-ActionOutput "build-branch" $buildBranch
-Set-ActionOutput "build-commit" $buildCommit
-Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
