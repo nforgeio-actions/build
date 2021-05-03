@@ -182,9 +182,6 @@ catch
     Write-ActionException $_
 
     Set-ActionOutput "success" "false"
-    Set-ActionOutput "build-branch" $buildBranch
-    Set-ActionOutput "build-commit" $buildCommit
-    Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
 
     if ($failOnError)
     {
@@ -195,3 +192,6 @@ catch
 }
 
 Set-ActionOutput "success" "true"
+Set-ActionOutput "build-branch" $buildBranch
+Set-ActionOutput "build-commit" $buildCommit
+Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
