@@ -104,9 +104,6 @@ try
 
             Pop-Location
 
-            Set-ActionOutput "build-commit" "$buildCommit"
-            Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
-
             # Perform the build.
 
             & pwsh $buildScript $toolsOption $installersOption $codeDocOption $configOption >> $buildLogPath
@@ -148,9 +145,6 @@ try
 
             Pop-Location
 
-            Set-ActionOutput "build-commit" "$buildCommit"
-            Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
-
             # Perform the build.
 
             & pwsh $buildScript $toolsOption $installersOption $codeDocOption $configOption >> $buildLogPath
@@ -188,6 +182,9 @@ catch
     Write-ActionException $_
 
     Set-ActionOutput "success" "false"
+    Set-ActionOutput "build-branch" $buildBranch
+    Set-ActionOutput "build-commit" $buildCommit
+    Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
 
     if ($failOnError)
     {
