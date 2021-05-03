@@ -71,6 +71,7 @@ try
           
         "neonCLOUD"
         {
+            $repoPath         = "github.com/nforgeio/neonCLOUD"
             $buildScript      = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
             $toolsOption      = ""
             $installersOption = ""
@@ -114,6 +115,7 @@ try
           
         "neonKUBE"
         {
+            $repoPath         = "github.com/nforgeio/neonKUBE"
             $buildScript      = [System.IO.Path]::Combine($env:NF_TOOLBIN, "neon-builder.ps1")
             $toolsOption      = ""
             $installersOption = ""
