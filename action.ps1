@@ -31,10 +31,10 @@ Pop-Location
       
 # Read the inputs and initialize other variables.
       
-$repo            = Get-ActionInput "repo"           $true
-$buildBranch     = Get-ActionInput "build-branch"   $true
-$buildConfig     = Get-ActionInput "build-config"   $false
-$buildLogPath    = Get-ActionInput "build-log-path" $true
+$repo            = Get-ActionInput "repo"         $true
+$buildBranch     = Get-ActionInput "build-branch" $true
+$buildConfig     = Get-ActionInput "build-config" $false
+$buildLogPath    = Get-ActionInput "build-log"    $true
 $buildTools      = $(Get-ActionInput "build-tools") -eq "true"
 $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
@@ -170,6 +170,7 @@ try
 
     Set-ActionOutput "build-branch" $buildBranch
     Set-ActionOutput "build-config" $buildConfig
+    Set-ActionOutput "build-log"    $buildLogPath
     Set-ActionOutput "build-commit" $buildCommit
     Set-ActionOutput "build-commit-uri" "https://github.com/$env:GITHUB_REPOSITORY/commit/$buildCommit"
 }

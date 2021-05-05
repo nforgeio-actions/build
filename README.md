@@ -19,7 +19,7 @@ with:
   build-tools: true
   build-installer: true
   build-codedoc: true
-  build-log-path: ${{ github.workspace }}/build.log
+  build-log: ${{ github.workspace }}/build.log
 ```
 
 **neonCLOUD: Build code only**
@@ -27,7 +27,7 @@ with:
 uses: nforgeio-actions/build
 with:
   repo: neonCLOUD
-  build-log-path: ${{ github.workspace }}/build.log
+  build-log: ${{ github.workspace }}/build.log
 ```
 
 **neonCLOUD: Build code only (jeff branch)**
@@ -36,7 +36,7 @@ uses: nforgeio-actions/build
 with:
   repo: neonCLOUD
   build-branch: jeff
-  build-log-path: ${{ github.workspace }}/build.log
+  build-log: ${{ github.workspace }}/build.log
 ```
 
 **neonCLOUD: Build code only**
@@ -44,7 +44,7 @@ with:
 uses: nforgeio-actions/build
 with:
   repo: neonCLOUD
-  build-log-path: ${{ github.workspace }}/build.log
+  build-log: ${{ github.workspace }}/build.log
 ```
 
 **neonCLOUD: Build code only and capture build log**
@@ -54,7 +54,7 @@ steps:
   uses: nforgeio-actions/build
   with:
     repo: neonCLOUD
-    build-log-path: ${{ github.workspace }}/build.log
+    build-log: ${{ github.workspace }}/build.log
 - uses: nforgeio-actions/capture-log
   if: ${{ always() }}
   with:
@@ -72,6 +72,6 @@ steps:
   uses: nforgeio-actions/build
   with:
     repo: neonFORGE
-    build-log-path: ${{ github.workspace }}/build.log
+    build-log: ${{ github.workspace }}/build.log
     fail-on-error: true
 ```

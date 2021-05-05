@@ -39,7 +39,7 @@ inputs:
     description: "Indicates whether code documentation should be built"
     required: false
     default: "false"
-  build-log-path:
+  build-log:
     description: "Specifies where the build log file should be written"
     required: true
   fail-on-error:
@@ -57,6 +57,8 @@ outputs:
     description: "Returns as the git commit hash built"
   build-commit-uri:
     description: "Returns as the GitHub URI to the commit built"
+  build-log:
+    description: "Returns as the local path to the build log"
 runs:
   using: node12
   main: action.js
