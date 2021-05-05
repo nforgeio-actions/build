@@ -31,7 +31,7 @@ Pop-Location
       
 # Read the inputs and initialize other variables.
       
-$repo            = Get-ActionInput "repo"         $true
+$buildRepo       = Get-ActionInput "build-repo"   $true
 $buildBranch     = Get-ActionInput "build-branch" $true
 $buildConfig     = Get-ActionInput "build-config" $false
 $buildLogPath    = Get-ActionInput "build-log"    $true
@@ -56,7 +56,7 @@ try
         [System.IO.File]::Delete($buildLogPath)
     }
       
-    Switch ($repo)
+    Switch ($buildRepo)
     {
         ""
         {
@@ -162,7 +162,7 @@ try
           
         default
         {
-            Write-ActionError "[$repo] is not a supported repo."
+            Write-ActionError "[$buildRepo] is not a supported repo name."
             exit 1
         }
     }
