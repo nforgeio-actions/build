@@ -162,7 +162,8 @@ try
           
         default
         {
-            throw "[$repo] is not a supported repo."
+            Write-ActionError "[$repo] is not a supported repo."
+            exit 1
         }
     }
 
