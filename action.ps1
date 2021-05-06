@@ -40,9 +40,14 @@ $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
 $failOnError     = $(Get-ActionInput "build-codedoc") -eq "true"
 
+Log-DebugLine "*****************************************"
+Log-DebugLine "buildLogName: $buildLogName"
+Log-DebugLine "buildLogPath: $buildLogPath"
+Log-DebugLine "*****************************************"
+
 # Initialize the builder script options,
 
-#configOption     = ""
+$configOption     = ""
 $toolsOption      = ""
 $installersOption = ""
 $codeDocOption    = ""
