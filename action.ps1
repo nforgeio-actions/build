@@ -40,9 +40,31 @@ $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
 $failOnError     = $(Get-ActionInput "build-codedoc") -eq "true"
 
+# Initialize the builder script options,
+
+#configOption     = ""
+$toolsOption      = ""
+$installersOption = ""
+$codeDocOption    = ""
+
 if ($buildConfig -ne "release")
 {
     $configOption = "-debug"
+}
+
+if ($buildTools)
+{
+    $toolsOption = "-tools"
+}
+              
+if ($buildInstallers)
+{
+    $installersOption = "-installers"
+}
+              
+if ($buildCodeDoc)
+{
+    $codeDocOption = "-codedoc"
 }
 
 # Perform the operation in a try/catch.
@@ -65,26 +87,8 @@ try
           
         "neonCLOUD"
         {
-            $repoPath         = "github.com/nforgeio/neonCLOUD"
-            $buildScript      = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
-            $toolsOption      = ""
-            $installersOption = ""
-            $codeDocOption    = ""
-              
-            if ($buildTools)
-            {
-                $toolsOption = "-tools"
-            }
-              
-            if ($buildInstallers)
-            {
-                $installersOption = "-installers"
-            }
-              
-            if ($buildCodeDoc)
-            {
-                $codeDocOption = "-codedoc"
-            }
+            $repoPath    = "github.com/nforgeio/neonCLOUD"
+            $buildScript = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
               
             # Set the build outputs based on the local repo configuration.
 
@@ -100,32 +104,14 @@ try
 
             # Perform the build.
 
-            & pwsh $buildScript $toolsOption $installersOption $codeDocOption $configOption >> $buildLogPath
+            & pwsh $buildScript $codeDocOption $configOption $toolsOption $installersOption >> $buildLogPath
             ThrowOnExitCode
         }
           
         "neonKUBE"
         {
-            $repoPath         = "github.com/nforgeio/neonKUBE"
-            $buildScript      = [System.IO.Path]::Combine($env:NF_TOOLBIN, "neon-builder.ps1")
-            $toolsOption      = ""
-            $installersOption = ""
-            $codeDocOption    = ""
-              
-            if ($buildTools)
-            {
-                $toolsOption = "-tools"
-            }
-              
-            if ($buildInstallers)
-            {
-                $installersOption = "-installers"
-            }
-              
-            if ($buildCodeDoc)
-            {
-                $codeDocOption = "-codedoc"
-            }
+            $repoPath    = "github.com/nforgeio/neonKUBE"
+            $buildScript = [System.IO.Path]::Combine($env:NF_TOOLBIN, "neon-builder.ps1")
 
             # Set the build outputs based on the local repo configuration.
 
@@ -141,7 +127,7 @@ try
 
             # Perform the build.
 
-            & pwsh $buildScript $toolsOption $installersOption $codeDocOption $configOption >> $buildLogPath
+            & pwsh $buildScript $configOption $toolsOption $installersOption $codeDocOption >> $buildLogPath
             ThrowOnExitCode
         }
           
