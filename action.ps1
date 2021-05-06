@@ -31,7 +31,6 @@ Pop-Location
       
 # Read the inputs and initialize other variables.
       
-$buildRepo       = Get-ActionInput "build-repo"   $true
 $buildBranch     = Get-ActionInput "build-branch" $true
 $buildConfig     = Get-ActionInput "build-config" $false
 $buildLogPath    = Get-ActionInput "build-log"    $true
@@ -78,80 +77,25 @@ try
         [System.IO.File]::Delete($buildLogPath)
     }
       
-    Switch ($buildRepo)
-    {
-        ""
-        {
-            throw "[inputs.repo] is required."
-        }
-          
-        "neonCLOUD"
-        {
-            $repoPath    = "github.com/nforgeio/neonCLOUD"
-            $buildScript = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
+    $repoPath    = "github.com/nforgeio/neonCLOUD"
+    $buildScript = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
               
-            # Set the build outputs based on the local repo configuration.
+    # Set the build outputs based on the local repo configuration.
 
-            Push-Location $env:NC_ROOT
+    Push-Location $env:NC_ROOT
 
-                $buildBranch = $(& git branch --show-current).Trim()
-                ThrowOnExitCode
+        $buildBranch = $(& git branch --show-current).Trim()
+        ThrowOnExitCode
 
-                $buildCommit = $(& git rev-parse HEAD).Trim()
-                ThrowOnExitCode
+        $buildCommit = $(& git rev-parse HEAD).Trim()
+        ThrowOnExitCode
 
-            Pop-Location
+    Pop-Location
 
-            # Perform the build.
+    # Perform the build.
 
-            & pwsh $buildScript $codeDocOption $configOption $toolsOption $installersOption >> $buildLogPath
-            ThrowOnExitCode
-        }
-          
-        "neonKUBE"
-        {
-            $repoPath    = "github.com/nforgeio/neonKUBE"
-            $buildScript = [System.IO.Path]::Combine($env:NF_TOOLBIN, "neon-builder.ps1")
-
-            # Set the build outputs based on the local repo configuration.
-
-            Push-Location $env:NF_ROOT
-
-                $buildBranch = $(& git branch --show-current).Trim()
-                ThrowOnExitCode
-
-                $buildCommit = $(& git rev-parse HEAD).Trim()
-                ThrowOnExitCode
-
-            Pop-Location
-
-            # Perform the build.
-
-            & pwsh $buildScript $configOption $toolsOption $installersOption $codeDocOption >> $buildLogPath
-            ThrowOnExitCode
-        }
-          
-        "neonLIBRARY"
-        {
-            throw "[neonLIBRARY] build is not implemented."
-        }
-          
-        "cadence-samples"
-        {
-            throw "[cadence-samples] build is not implemented."
-        }
-          
-        "temporal-samples"
-        {
-            throw "[temporal-samples] build is not implemented."
-        }
-          
-        default
-        {
-            Write-ActionError "[$buildRepo] is not a supported repo name."
-            exit 1
-        }
-    }
+    & pwsh $buildScript $codeDocOption $configOption $toolsOption $installersOption >> $buildLogPath
+    ThrowOnExitCode
 
     # Set some output variables.
 

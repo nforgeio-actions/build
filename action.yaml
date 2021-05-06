@@ -1,25 +1,9 @@
 #------------------------------------------------------------------------------
-# Builds a neonFORGE GitHub repo solution on a JOBRUNNER within the [C:\src] directory.
-#
-# This currently manages the following neonFORGE repos:
-#
-#   neonCLOUD           - private/enterprise code including deployment scripts
-#   neonKUBE            - public neonKUBE related code
-#   neonLIBRARY         - public neonLIBRARY related code
-#   cadence-samples     - public Cadence sample apps
-#   temporal-samples    - public Temporal sample apps
-#
-# REMARKS:
-#
-# This builds all projects in the RELEASE configuration and then builds any additional
-# requested artifacts like tools or code documentation.
+# Builds the neonCLOUD GitHub repo solution on a JOBRUNNER within the [C:\src] directory.
 
 name: build
 description: "Builds one of the neonFORGE repos with options"
 inputs:
-  build-repo:
-    description: "Specifies the repostory to build, one of: neonCLOUD, neonKUBE, neonLIBRARY, cadence-samples, or temporal-samples"
-    required: true
   build-branch:
     description: "Specifies the build branch"
     required: true
