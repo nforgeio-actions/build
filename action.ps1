@@ -33,7 +33,8 @@ Pop-Location
       
 $buildBranch     = Get-ActionInput "build-branch" $true
 $buildConfig     = Get-ActionInput "build-config" $false
-$buildLogPath    = Get-ActionInput "build-log"    $true
+$buildLogName    = Get-ActionInput "build-log"    $true
+$buildLogPath    = [System.IO.Path]::Combine($env:GITHUB_WORKSPACE, $buildLogName)
 $buildTools      = $(Get-ActionInput "build-tools") -eq "true"
 $buildInstallers = $(Get-ActionInput "build-installers") -eq "true"
 $buildCodeDoc    = $(Get-ActionInput "build-codedoc") -eq "true"
