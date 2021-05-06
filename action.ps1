@@ -70,6 +70,18 @@ if ($buildCodeDoc)
 
 try
 {
+    # Fetch the current local repo branch and commit via: git
+
+    Push-Location $env:NC_ROOT
+
+        $buildBranch = $(& git branch --show-current).Trim()
+        ThrowOnExitCode
+
+        $buildCommit = $(& git rev-parse HEAD).Trim()
+        ThrowOnExitCode
+
+    Pop-Location
+
     # Set some output variables.
 
     Set-ActionOutput "build-branch" $buildBranch
@@ -88,18 +100,6 @@ try
     $repoPath    = "github.com/nforgeio/neonCLOUD"
     $buildScript = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
               
-    # Set the build outputs based on the local repo configuration.
-
-    Push-Location $env:NC_ROOT
-
-        $buildBranch = $(& git branch --show-current).Trim()
-        ThrowOnExitCode
-
-        $buildCommit = $(& git rev-parse HEAD).Trim()
-        ThrowOnExitCode
-
-    Pop-Location
-
     # Perform the build.
 
     & pwsh $buildScript $codeDocOption $configOption $toolsOption $installersOption >> $buildLogPath
