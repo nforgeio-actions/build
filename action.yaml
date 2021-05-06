@@ -8,9 +8,9 @@ inputs:
     description: "Specifies the build branch"
     required: true
   build-config: 
-    description: "Specifies the build configuration ('release' is hard-coded)"
+    description: "Specifies the build configuration"
     required: false
-    default: "true"
+    default: debug
   build-tools:
     description: "Indicates whether tools should be built and published to the repo's Build folder"
     required: false
