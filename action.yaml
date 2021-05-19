@@ -32,7 +32,7 @@ inputs:
     default: "false"
 outputs:
   success: 
-    description: "Returns 'true' on success or 'false' on faiure"
+    description: "Returns 'true' on success or 'false' on failure"
   build-branch:
     description: "Returns as the repo branch built"
   build-config:
