@@ -26,9 +26,9 @@ if ([System.String]::IsNullOrEmpty($ncRoot) -or ![System.IO.Directory]::Exists($
       
 $ncPowershell = [System.IO.Path]::Combine($ncRoot, "Powershell")
       
-Push-Location $ncPowershell
+Push-Cwd $ncPowershell
 . ./includes.ps1
-Pop-Location
+Pop-Cwd
       
 # Read the inputs and initialize other variables.
       
@@ -74,7 +74,7 @@ try
 {
     # Fetch the current local repo branch and commit via: git
 
-    Push-Location $env:NC_ROOT
+    Push-Cwd $env:NC_ROOT
 
         $buildBranch = $(& git branch --show-current).Trim()
         ThrowOnExitCode
@@ -82,7 +82,7 @@ try
         $buildCommit = $(& git rev-parse HEAD).Trim()
         ThrowOnExitCode
 
-    Pop-Location
+    Pop-Cwd
 
     # Set some output variables.
 
@@ -99,7 +99,6 @@ try
         [System.IO.File]::Delete($buildLogPath)
     }
       
-    $repoPath    = "github.com/nforgeio/neonCLOUD"
     $buildScript = [System.IO.Path]::Combine($env:NC_TOOLBIN, "neoncloud-builder.ps1")
               
     # Perform the build.
