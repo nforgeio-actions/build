@@ -103,7 +103,7 @@ try
               
     # Perform the build.
 
-    pwsh -File $buildScript -NonInteractive $codeDocOption $configOption $toolsOption $installersOption *> $buildLogPath
+    pwsh -File $buildScript -NonInteractive $codeDocOption $configOption $toolsOption $installersOption 6>&1 2>&1 > $buildLogPath
     ThrowOnExitCode
 }
 catch
