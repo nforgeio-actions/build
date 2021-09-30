@@ -39,7 +39,7 @@ $buildLogPath    = [System.IO.Path]::Combine($env:GITHUB_WORKSPACE, $buildLogNam
 $buildTools      = Get-ActionInputBool "build-tools"
 $buildInstallers = Get-ActionInputBool "build-installers"
 $buildCodeDoc    = Get-ActionInputBool "build-codedoc"
-$failOnError     = Get-ActionInputBool "build-codedoc"
+$failOnError     = Get-ActionInputBool "fail-on-error"
 
 # Initialize the builder script options,
 

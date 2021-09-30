@@ -29,7 +29,7 @@ inputs:
   fail-on-error:
     description: "Fail the activity step for build errors"
     required: false
-    default: "false"
+    default: "true"
 outputs:
   success: 
     description: "Returns 'true' on success or 'false' on failure"
